@@ -9,10 +9,26 @@ public class Estudiante extends Persona {
     }
 
     public String getSemestre() {
+
         return semestre;
     }
 
     public void setSemestre(String semestre) {
         this.semestre = semestre;
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "nombres='" + getNombres() + '\'' +
+                ", apellidos='" + getApellidos() + '\'' +
+                ", identificacion='" + getIdentificacion() + '\'' +
+                ", carne='" + getCarne() + '\'' +
+                "semestre=" + semestre +
+                '}';
+    }
+
+    public String toStore() {
+        return getNombres()+","+getApellidos()+","+getIdentificacion()+","+getCarne()+","+semestre;
     }
 }

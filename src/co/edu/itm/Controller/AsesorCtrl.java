@@ -5,6 +5,7 @@ import co.edu.itm.Model.Asesor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AsesorCtrl {
     private List<Asesor> asesores= new ArrayList<Asesor>();
@@ -43,5 +44,14 @@ public class AsesorCtrl {
         System.out.println("Ingresa el numero de trabajos del asesor");
         int nroTrabajos = teclado.nextInt();
         this.asesores.add(new Asesor(nombre,apellido,identificacion,carne,nroTrabajos));
+    }
+
+    public void imprimirAsesores() {
+        asesores.stream().forEach(asesor->System.out.println(asesor.toString()));
+    }
+
+    public Object[] getAsoresToStore(){
+        List<String> asesoresToStore = asesores.stream().map(asesor -> asesor.toStore()).collect(Collectors.toList());
+        return asesoresToStore.toArray();
     }
 }

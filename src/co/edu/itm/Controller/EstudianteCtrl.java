@@ -5,6 +5,7 @@ import co.edu.itm.Model.Estudiante;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class EstudianteCtrl {
     private List<Estudiante> estudiantes = new ArrayList<Estudiante>();
@@ -43,5 +44,12 @@ public class EstudianteCtrl {
         System.out.println("Ingresa el semestre del estudiante");
         String semestre = teclado.nextLine();
         this.estudiantes.add(new Estudiante(nombre,apellido,identificacion,carne,semestre));
+    }
+
+    public void imprimirEstudiantes() {estudiantes.stream().forEach(estudiante->System.out.println(estudiante.toString()));    }
+
+    public Object[] getEstudiantesToStore(){
+        List<String> estudiantesToStore = estudiantes.stream().map(estudiante -> estudiante.toStore()).collect(Collectors.toList());
+        return estudiantesToStore.toArray();
     }
 }

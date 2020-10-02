@@ -1,1 +1,1 @@
-01/10/2020,primer estado;02/10/2020,segundo estado
+2020-10-01,primer estado;2020-10-02,segundo estado;2020-10-03,tercer estado

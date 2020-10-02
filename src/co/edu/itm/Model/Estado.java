@@ -1,21 +1,22 @@
 package co.edu.itm.Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Estado {
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
     private String descripcion;
 
-    public Estado(Date fechaCreacion, String descripcion) {
+    public Estado(LocalDate fechaCreacion, String descripcion) {
         this.fechaCreacion = fechaCreacion;
         this.descripcion = descripcion;
     }
 
-    public Date getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -25,5 +26,17 @@ public class Estado {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "Estado{" +
+                "fechaCreacion=" + fechaCreacion +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
+
+    public String toStore(){
+        return fechaCreacion.toString()+","+descripcion;
     }
 }

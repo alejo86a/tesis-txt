@@ -1,6 +1,8 @@
 package co.edu.itm.Model;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrabajoDeGrado {
     private String titulo;
@@ -65,5 +67,31 @@ public class TrabajoDeGrado {
 
     public void setEstados(List<Estado> estados) {
         this.estados = estados;
+    }
+
+    @Override
+    public String toString() {
+        return "TrabajoDeGrado{" +
+                "titulo='" + titulo + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", modalidad='" + modalidad + '\'' +
+                ", asesor=" + asesor +
+                ", estudiantes=" + Arrays.toString(estudiantes.toArray()) +
+                ", estados=" + Arrays.toString(estados.toArray()) +
+                '}';
+    }
+
+    public String toStore(){
+        return titulo+","+codigo+","+modalidad+","+asesor.getIdentificacion()+","+getEstudiantesToStore()+","+getEstadosToStore();
+    }
+
+    public String getEstudiantesToStore(){
+        List<String> identificaciones = estudiantes.stream().map(e->e.getIdentificacion()).collect(Collectors.toList());
+        return String.join("-", identificaciones);
+    }
+
+    public String getEstadosToStore(){
+        List<String> descripciones = estados.stream().map(e->e.getDescripcion()).collect(Collectors.toList());
+        return String.join("-", descripciones);
     }
 }

@@ -15,4 +15,19 @@ public class Asesor extends Persona{
     public void setNroTrabajos(int nroTrabajos) {
         this.nroTrabajos = nroTrabajos;
     }
+
+    @Override
+    public String toString() {
+        return "Asesor{" +
+                "nombres='" + getNombres() + '\'' +
+                ", apellidos='" + getApellidos() + '\'' +
+                ", identificacion='" + getIdentificacion() + '\'' +
+                ", carne='" + getCarne() + '\'' +
+                "nroTrabajos=" + nroTrabajos +
+                '}';
+    }
+
+    public String toStore() {
+        return getNombres()+","+getApellidos()+","+getIdentificacion()+","+getCarne()+","+nroTrabajos;
+    }
 }

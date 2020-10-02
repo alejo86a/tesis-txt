@@ -8,6 +8,7 @@ import co.edu.itm.Model.TrabajoDeGrado;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TrabajoDeGradoCtrl {
     private List<TrabajoDeGrado> trabajosDeGrado = new ArrayList<TrabajoDeGrado>();
@@ -37,11 +38,11 @@ public class TrabajoDeGradoCtrl {
     }
 
     private List<Estudiante> getEstudiantesPorIdentificacion(String identificaciones){
-        List<Estudiante> estudiantesTemp = null;
+        List<Estudiante> estudiantesTemp = new ArrayList<Estudiante>();
         String[] ids = identificaciones.split("-");
         for (int i = 0; i < estudiantes.size(); i++) {
             for (int j = 0; j < ids.length; j++) {
-                if(estudiantes.get(i).getIdentificacion()==ids[j]){
+                if(estudiantes.get(i).getIdentificacion().equals(ids[j])){
                     estudiantesTemp.add(estudiantes.get(i));
                 }
             }
@@ -50,11 +51,11 @@ public class TrabajoDeGradoCtrl {
     }
 
     private List<Estado> getEstadosPorDescripcion(String descripciones){
-        List<Estado> estadosTemp = null;
+        List<Estado> estadosTemp = new ArrayList<Estado>();
         String[] des = descripciones.split("-");
         for (int i = 0; i < estados.size(); i++) {
             for (int j = 0; j < des.length; j++) {
-                if(estados.get(i).getDescripcion()==des[j]){
+                if(estados.get(i).getDescripcion().equals(des[j])){
                     estadosTemp.add(estados.get(i));
                 }
             }
@@ -65,7 +66,7 @@ public class TrabajoDeGradoCtrl {
     private Asesor getAsesorPorIdentificacion(String identificacion){
         Asesor asesor = null;
         for (int i = 0; i < asesores.size(); i++) {
-            if(asesores.get(i).getIdentificacion()==identificacion){
+            if(asesores.get(i).getIdentificacion().equals(identificacion)){
                 asesor= asesores.get(i);
             }
         }
@@ -101,7 +102,7 @@ public class TrabajoDeGradoCtrl {
         System.out.println("Cuantos estudiantes realizan este trabajo de grado? ingrese un numero entre 1 y 3");
         int cantEstudiantes = teclado.nextInt();
         List<Estudiante> estudiantesTemp = new ArrayList<Estudiante>();
-        for (int i = 0; i < cantEstudiantes || i==2; i++) {
+        for (int i = 0; i < cantEstudiantes; i++) {
             System.out.println("Seleccione el estudiante numero "+(i+1));
             for (int j = 0; j < estudiantes.size(); j++) {
                 System.out.println(j+" para "+estudiantes.get(j).getNombres()+" "+estudiantes.get(j).getApellidos());
@@ -120,7 +121,7 @@ public class TrabajoDeGradoCtrl {
         System.out.println("Cuantos estados desea ingresar?");
         int cantEstados = teclado.nextInt();
         List<Estado> estadosTemp = new ArrayList<Estado>();
-        for (int i = 0; i < cantEstados || i==2; i++) {
+        for (int i = 0; i < cantEstados; i++) {
             System.out.println("Seleccione el estado numero "+(i+1));
             for (int j = 0; j < estados.size(); j++) {
                 System.out.println(j+" para "+estados.get(j).getDescripcion());
@@ -128,5 +129,14 @@ public class TrabajoDeGradoCtrl {
             estadosTemp.add(estados.get(teclado.nextInt()));
         }
         this.trabajosDeGrado.add(new TrabajoDeGrado(titulo, codigo, modalidad, asesorTemp, estudiantesTemp, estadosTemp));
+    }
+
+    public void imprimirTrabajosDeGrado() {
+        trabajosDeGrado.stream().forEach(trabajoDeGrado->System.out.println(trabajoDeGrado.toString()));
+    }
+
+    public Object[] getTrabajosDeGradoToStore(){
+        List<String> trabajosDeGradoToStore = trabajosDeGrado.stream().map(trabajoDeGrado->trabajoDeGrado.toStore()).collect(Collectors.toList());;
+        return trabajosDeGradoToStore.toArray();
     }
 }

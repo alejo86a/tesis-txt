@@ -7,6 +7,7 @@ import co.edu.itm.Model.TrabajoDeGrado;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ProgramaCtrl {
 
@@ -25,7 +26,7 @@ public class ProgramaCtrl {
                             programaSplited[0],
                             programaSplited[1],
                             programaSplited[2],
-                            getTrabajosDeGradoPorCodigo(programaSplited[4])
+                            getTrabajosDeGradoPorCodigo(programaSplited[3])
                     ));
                 }
             }
@@ -33,11 +34,11 @@ public class ProgramaCtrl {
     }
 
     private List<TrabajoDeGrado> getTrabajosDeGradoPorCodigo(String codigos){
-        List<TrabajoDeGrado> trabajosDeGradoTemp = null;
+        List<TrabajoDeGrado> trabajosDeGradoTemp = new ArrayList<TrabajoDeGrado>();
         String[] cos = codigos.split("-");
         for (int i = 0; i < trabajosDeGrado.size(); i++) {
             for (int j = 0; j < cos.length; j++) {
-                if(trabajosDeGrado.get(i).getCodigo()==cos[j]){
+                if(trabajosDeGrado.get(i).getCodigo().equals(cos[j])){
                     trabajosDeGradoTemp.add(trabajosDeGrado.get(i));
                 }
             }
@@ -65,7 +66,7 @@ public class ProgramaCtrl {
         int cantTrabajosDeGrado = teclado.nextInt();
         List<TrabajoDeGrado> trabajosDeGradoTemp = new ArrayList<TrabajoDeGrado>();
         for (int i = 0; i < cantTrabajosDeGrado; i++) {
-            System.out.println("Seleccione el estado numero "+i);
+            System.out.println("Seleccione el trabajo de grado numero "+(i+1));
             for (int j = 0; j < trabajosDeGrado.size(); j++) {
                 System.out.println(j+" para "+trabajosDeGrado.get(j).getTitulo());
             }
@@ -73,5 +74,14 @@ public class ProgramaCtrl {
         }
         this.programas.add(new Programa(nombre,codigo,ciclo,trabajosDeGradoTemp));
 
+    }
+
+    public void imprimirProgramas() {
+        programas.stream().forEach(programa->System.out.println(programa.toString()));
+    }
+
+    public Object[] getProgramasToStore(){
+        List<String> programasToStore = programas.stream().map(programa -> programa.toStore()).collect(Collectors.toList());
+        return programasToStore.toArray();
     }
 }
